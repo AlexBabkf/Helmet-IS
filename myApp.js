@@ -12,6 +12,12 @@ app.use(helmet.frameguard({ action: "deny" }));
 // Sanitize (encode) input sent to server. Lower risk of XSS attacks
 app.use(helmet.xssFilter());
 
+// Stop MIME sniffing. Don't bypass povided Content-Type
+app.use(helmet.noSniff());
+
+// Prevent IE users from executing downloads in the trusted site's context
+app.use(helmet.ieNoOpen());
+
 module.exports = app;
 const api = require("./server.js");
 app.use(express.static("public"));
