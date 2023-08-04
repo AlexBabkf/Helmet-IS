@@ -21,6 +21,9 @@ app.use(helmet.ieNoOpen());
 // Establish HSTS
 app.use(helmet.hsts({ maxAge: 90 * 24 * 60 * 60, force: true })); // 90 days
 
+// Disable DNS prefetching. Prevent DNS service overusing (Performance penalty)
+app.use(helmet.dnsPrefetchControl());
+
 module.exports = app;
 const api = require("./server.js");
 app.use(express.static("public"));
