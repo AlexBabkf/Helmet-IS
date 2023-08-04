@@ -18,6 +18,9 @@ app.use(helmet.noSniff());
 // Prevent IE users from executing downloads in the trusted site's context
 app.use(helmet.ieNoOpen());
 
+// Establish HSTS
+app.use(helmet.hsts({ maxAge: 90 * 24 * 60 * 60, force: true })); // 90 days
+
 module.exports = app;
 const api = require("./server.js");
 app.use(express.static("public"));
