@@ -9,6 +9,9 @@ app.use(helmet.hidePoweredBy());
 // Restrict frame options. Prevent clickjacking techniques
 app.use(helmet.frameguard({ action: "deny" }));
 
+// Sanitize (encode) input sent to server. Lower risk of XSS attacks
+app.use(helmet.xssFilter());
+
 module.exports = app;
 const api = require("./server.js");
 app.use(express.static("public"));
