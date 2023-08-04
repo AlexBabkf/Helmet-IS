@@ -3,6 +3,8 @@ const app = express();
 
 const helmet = require("helmet");
 
+// ADD MIDDLEWARES SPARATELY.
+
 // Remove powered by express header
 app.use(helmet.hidePoweredBy());
 
@@ -36,6 +38,10 @@ app.use(
     },
   })
 );
+
+// AUTOMATICALLY INCLUDE ALL MIDDLEWARES. (cache and csp need to be added as extra)
+
+app.use(helmet());
 
 module.exports = app;
 const api = require("./server.js");
