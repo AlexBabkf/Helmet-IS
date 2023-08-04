@@ -3,7 +3,11 @@ const app = express();
 
 const helmet = require("helmet");
 
+// Remove powered by express header
 app.use(helmet.hidePoweredBy());
+
+// Restrict frame options. Prevent clickjacking techniques
+app.use(helmet.frameguard({ action: "deny" }));
 
 module.exports = app;
 const api = require("./server.js");
