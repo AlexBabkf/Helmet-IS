@@ -24,6 +24,19 @@ app.use(helmet.hsts({ maxAge: 90 * 24 * 60 * 60, force: true })); // 90 days
 // Disable DNS prefetching. Prevent DNS service overusing (Performance penalty)
 app.use(helmet.dnsPrefetchControl());
 
+// Disable caching. Users always download newest version (performance penalty)
+app.use(helmet.noCache());
+
+// Add CSP. Protect app from XSS vulnerabilities, undesired tracking, malicious frames and more. Dosn't work on old browsers.
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "trusted-cdn.com"],
+    },
+  })
+);
+
 module.exports = app;
 const api = require("./server.js");
 app.use(express.static("public"));
